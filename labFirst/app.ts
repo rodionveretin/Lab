@@ -46,7 +46,7 @@ class Model {
         }
       }
     }
-    return this.state;
+    return States.stop;
   } 
 }
 
@@ -54,4 +54,4 @@ let testString = 'Lorem ipsum dolor sit amet';
 
 let lexer = new Model;
 
-lexer.getCurrent(testString);
+console.log(lexer.getCurrent(testString));

@@ -56,11 +56,11 @@ var Model = /** @class */ (function () {
                     }
                 }
             }
-            return _this.state;
+            return States.stop;
         };
     }
     return Model;
 }());
 var testString = 'Lorem ipsum dolor sit amet';
 var lexer = new Model;
-lexer.getCurrent(testString);
+console.log(lexer.getCurrent(testString));
