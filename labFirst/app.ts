@@ -6,8 +6,8 @@ enum States {
 };
 
 class Model {
-  state: string = States.s0;
-  temp: string[] = [];
+  private state: string = States.s0;
+  private temp: string[] = [];
   getCurrent = (str: string) => {
     if (!str) {
       this.state = States.stop;
@@ -40,9 +40,14 @@ class Model {
             continue;
           }      
         } else if (this.state == States.error) {
-          console.log(this.state);
-          this.temp = [];
-          continue;
+          if (str[i] == ' ') {
+            console.log(this.state);
+            this.state = States.s0;
+            this.temp = [];
+            continue;
+          } else {
+            continue;
+          }
         }
       }
     }
@@ -50,7 +55,7 @@ class Model {
   } 
 }
 
-let testString = 'Lorem ipsum dolor sit amet';
+let testString = 'Lorem ips{um dolor sit amet';
 
 let lexer = new Model;
 

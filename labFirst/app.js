@@ -50,9 +50,15 @@ var Model = /** @class */ (function () {
                         }
                     }
                     else if (_this.state == States.error) {
-                        console.log(_this.state);
-                        _this.temp = [];
-                        continue;
+                        if (str[i] == ' ') {
+                            console.log(_this.state);
+                            _this.state = States.s0;
+                            _this.temp = [];
+                            continue;
+                        }
+                        else {
+                            continue;
+                        }
                     }
                 }
             }
@@ -61,6 +67,6 @@ var Model = /** @class */ (function () {
     }
     return Model;
 }());
-var testString = 'Lorem ipsum dolor sit amet';
+var testString = 'Lorem ips{um dolor sit amet';
 var lexer = new Model;
 console.log(lexer.getCurrent(testString));
