@@ -14,7 +14,7 @@ var Model = /** @class */ (function () {
         this.getCurrent = function (str) {
             if (!str) {
                 _this.state = States.stop;
-                return _this.state;
+                console.log(_this.state);
             }
             else {
                 for (var i = 0; i <= str.length; i++) {
@@ -50,23 +50,16 @@ var Model = /** @class */ (function () {
                         }
                     }
                     else if (_this.state == States.error) {
-                        if (str[i] == ' ') {
-                            console.log(_this.state);
-                            _this.state = States.s0;
-                            _this.temp = [];
-                            continue;
-                        }
-                        else {
-                            continue;
-                        }
+                        console.log(_this.state);
+                        break;
                     }
+                    console.log(_this.state);
                 }
             }
-            return States.stop;
         };
     }
     return Model;
 }());
-var testString = 'Lorem ips{um dolor sit amet';
+var testString = 'Lorem ipsum dolor s!it amet';
 var lexer = new Model;
-console.log(lexer.getCurrent(testString));
+lexer.getCurrent(testString);

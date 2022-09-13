@@ -6,12 +6,12 @@ enum States {
 };
 
 class Model {
-  private state: string = States.s0;
-  private temp: string[] = [];
+  state: string = States.s0;
+  temp: string[] = [];
   getCurrent = (str: string) => {
     if (!str) {
       this.state = States.stop;
-      return this.state;
+      console.log(this.state);
     } else {
       for (let i = 0; i <= str.length; i++) {
         if (this.state == States.s0) {
@@ -40,23 +40,17 @@ class Model {
             continue;
           }      
         } else if (this.state == States.error) {
-          if (str[i] == ' ') {
-            console.log(this.state);
-            this.state = States.s0;
-            this.temp = [];
-            continue;
-          } else {
-            continue;
-          }
+          console.log(this.state);
+          break;
         }
+        console.log(this.state);
       }
     }
-    return States.stop;
   } 
 }
 
-let testString = 'Lorem ips{um dolor sit amet';
+let testString = 'Lorem ipsum dolor s!it amet';
 
 let lexer = new Model;
 
-console.log(lexer.getCurrent(testString));
+lexer.getCurrent(testString);
