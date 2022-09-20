@@ -8,48 +8,59 @@ enum States {
 class Model {
   state: string = States.s0;
   temp: string[] = [];
+
+  firstLit = (str: string) => {
+    if ((str >= 'a' && str < 'z') || (str >= 'A' && str < 'Z')) {
+      this.state = States.nxtLit;
+      this.temp.push(str);
+    } else {
+      this.state = States.error;
+    }
+  }
+
+  nxtLit = (str: string) => {
+    if (str == ' ') {
+      this.state = States.s0;
+      console.log(this.temp.join(''));
+      this.temp = [];
+    } else if ((str >= 'a' && str < 'z') || (str >= 'A' && str < 'Z') || (str >= '1' && str < '9')) {
+      this.state = States.nxtLit;
+      this.temp.push(str);
+    } else {
+      this.state = States.error;
+    }
+  }
+
+  error = () => {
+    console.log(this.state);
+  }
+
   getCurrent = (str: string) => {
     if (!str) {
       this.state = States.stop;
       console.log(this.state);
     } else {
       for (let i = 0; i <= str.length; i++) {
-        if (this.state == States.s0) {
-          if (str[i] == ' ') {
+        switch (this.state) {
+          case States.s0:
+            this.firstLit(str[i]);
             continue;
-          } else if ((str[i] >= 'a' && str[i] < 'z') || (str[i] >= 'A' && str[i] < 'Z')) {
-            this.state = States.nxtLit;
-            this.temp.push(str[i]);
+          case States.nxtLit:
+            this.nxtLit(str[i]);
             continue;
-          } else {
-            this.state = States.error; 
-            continue;
-          }
-        } else if (this.state == States.nxtLit) {
-          if (str[i] == ' ') {
-            this.state = States.s0;
-            console.log(this.temp.join(''));
-            this.temp = [];
-            continue;
-          } else if ((str[i] >= 'a' && str[i] < 'z') || (str[i] >= 'A' && str[i] < 'Z') || (str[i] >= '1' && str[i] < '9')) {
-            this.state = States.nxtLit;
-            this.temp.push(str[i]);
-            continue;
-          } else {
-            this.state = States.error;
-            continue;
-          }      
-        } else if (this.state == States.error) {
-          console.log(this.state);
-          break;
+          case States.error:
+            this.error();
+            return;
         }
-        console.log(this.state);
       }
+      console.log(this.temp.join(''));
+      console.log(States.stop);
     }
-  } 
+  }
 }
 
-let testString = 'Lorem ipsum dolor s!it amet';
+
+let testString = 'Lorem ipsum dolor sit amet co!sectetur adipisicing elit';
 
 let lexer = new Model;
 
